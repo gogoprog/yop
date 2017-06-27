@@ -1,0 +1,25 @@
+#!/usr/bin/env lua
+
+require("os")
+
+function run_yaourt(...)
+    os.execute("yaourt " .. table.concat({...}," "))
+end
+
+if #arg == 0 then
+    os.execute("yaourt")
+else
+    all_args = table.concat(arg, " ")
+
+    if arg[1]:sub(1, 1) == '-' then
+        if #arg == 1 then
+            run_yaourt(arg[1])
+        else
+            for i=2,#arg do
+                run_yaourt(arg[1], arg[i])
+            end
+        end
+    else
+        run_yaourt(table.concat(arg," "))
+    end
+end
